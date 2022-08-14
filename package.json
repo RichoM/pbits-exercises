@@ -1,0 +1,16 @@
+{
+  "name": "pbits-exercises",
+  "version": "0.0.1",
+  "private": true,
+  "main": "main.js",
+  "devDependencies": {
+    "electron": "^20.0.2",
+    "shadow-cljs": "2.19.9"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.8"
+  },
+  "scripts": {
+    "start": "electron ."
+  }
+}
