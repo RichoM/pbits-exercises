@@ -1,3 +1,18 @@
-@font-face { font-family: LunaSans; src: url('fonts/LunaSans-Regular.ttf'); } 
+@font-face {
+    font-family: LunaSans;
+    src: url('fonts/LunaSans-Regular.ttf');
+}
 
-body { font-family: LunaSans, monospace; }
+body {
+    font-family: LunaSans, monospace;
+}
+
+html, body, .fullheight {
+    min-height: 100% !important;
+    height: 100%;
+}
+
+.scrollable {
+    overflow-x: auto !important;
+    overflow-y: scroll !important;
+}
