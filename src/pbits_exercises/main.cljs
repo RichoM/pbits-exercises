@@ -131,16 +131,25 @@
          [:div.row.fullheight
           [:div#side-bar.col-2.scrollable.fullheight
            [:ul.list-group.py-2
-            (map (fn [{:keys [idx name]}]
+            (map (fn [{:keys [idx name solved?]}]
                    (let [btn (crate/html [:button.list-group-item.list-group-item-action {:type "button"} name])]
                      (oset! btn :disabled (> idx (get first-unsolved :idx ##Inf)))
-                     (when (= idx (:idx current-exercise))
-                       (ocall! btn :classList.add "active"))
+                     (if (= idx (:idx current-exercise))
+                       (ocall! btn :classList.add "active")
+                       (if solved?
+                         (ocall! btn :classList.add "list-group-item-success")
+                         (ocall! btn :classList.add "list-group-item-primary")))
+                     
                      (b/on-click btn #(swap! state assoc :current-exercise idx))
                      btn))
                  exercises)]]
           [:div.col.p-3.scrollable.fullheight
-           [:h1.text-center (:name current-exercise)]
+           [:div.row
+            [:div.col (if (:solved? current-exercise)
+                        [:i.fs-1.text-success.fa-solid.fa-circle-check]
+                        [:i.fs-1.text-danger.fa-solid.fa-circle-xmark])]
+            [:div.col-auto [:h1.text-center (:name current-exercise)]]
+            [:div.col]]
            [:hr]
            (:contents current-exercise)
            [:hr]
