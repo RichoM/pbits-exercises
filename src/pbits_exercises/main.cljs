@@ -116,18 +116,18 @@
           (let [[file-path] (oget result :filePaths)
                 valid? (<! (validate-phb! file-path))]
             (if-not valid?
-              (<! (b/alert "ERROR" "El archivo seleccionado NO es un proyecto de Physical Bits válido"))
+              (<! (b/alert "ERROR" "El archivo seleccionado NO es un proyecto de Physical Bits válido."))
               (let [duplicated? (<! (check-for-duplicates! file-path))]
                 (if duplicated?
                   (<! (b/alert "ERROR" "El archivo seleccionado ya fue cargado como solución a un ejercicio. Intente nuevamente."))
-                  (let [solutions (<! (read-solutions-file! exercise))
+                  (let [solutions (<? (read-solutions-file! exercise))
                         solution-path (join-path SOLUTIONS-PATH (str name "." (count (:attempts solutions)) ".phb"))]
-                    (<! (copy-file! file-path solution-path))
-                    (<! (write-solutions-file! exercise
+                    (<? (copy-file! file-path solution-path))
+                    (<? (write-solutions-file! exercise
                                                (update solutions :attempts conj
                                                        {:ts (js/Date.)
                                                         :file solution-path})))
-                    (<! (b/alert "Éxito" "La solución se guardó correctamente"))
+                    (<! (b/alert "Éxito" "La solución se guardó correctamente."))
                     (swap! state assoc :current-exercise idx))))))))
       (catch :default error
         (js/console.error error)
