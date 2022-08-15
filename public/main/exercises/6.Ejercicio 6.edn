@@ -1,6 +1,6 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5 "Parpadear led rojo cada 1s"]
+ [:p.fs-5 "Hacer parpadear el LED rojo cada 1 segundo."]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

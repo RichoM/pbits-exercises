@@ -1,6 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5 "Semáforo: R (3s), RA (1s), V (3s), A (1s) y vuelve a empezar"]
+ [:p.fs-5 "Armar un programa que prenda y apague los 3 LEDs (rojo, amarillo, y verde) siguiendo la secuencia normal de un semáforo."] 
+ [:div.alert.alert-warning {:role "alert"} "IMPORTANTE: Prestar atención a todos los pasos de la secuencia."]
  [:img.img-fluid {:src "exercises/13.png"}]
  [:table.table.table-striped.table-sm.w-50
   [:thead

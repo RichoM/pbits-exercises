@@ -1,6 +1,6 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5 "Prender todos los leds, esperar 3s, apagar led rojo, esperar 2s, apagar led amarillo, esperar 1s, apagar led verde, terminar programa"]
+ [:p.fs-5 "Prender todos los LEDs, esperar 3 segundos, apagar el LED rojo, esperar 2 segundos, apagar el LED amarillo, esperar 1 segundo, apagar el LED verde, y terminar el programa."]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

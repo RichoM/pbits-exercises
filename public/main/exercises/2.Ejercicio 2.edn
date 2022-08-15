@@ -1,6 +1,6 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5 "Prender led amarillo, esperar 3s, apagar led amarillo, terminar programa"]
+ [:p.fs-5 "Prender el LED amarillo, esperar 3 segundos, apagar el LED amarillo, y terminar el programa."]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

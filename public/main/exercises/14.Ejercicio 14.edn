@@ -1,6 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5 "Prender todos los leds la mitad de la intensidad máxima, elegir el valor a ojo para que la intensidad de la luz se aproxime al valor deseado (la relación no es lineal)"]
+ [:p.fs-5 "Prender todos los LEDs a la mitad de la intensidad máxima, elegir el valor a ojo para que la intensidad de la luz se aproxime al valor deseado"]
+ [:div.alert.alert-warning {:role "alert"} "IMPORTANTE: Tener en cuenta que la relación entre el valor del pin y la intensidad del LED no es lineal."]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

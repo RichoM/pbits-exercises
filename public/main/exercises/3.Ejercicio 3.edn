@@ -1,6 +1,6 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5 "Prender led verde, esperar 1s, apagar led verde, esperar 2s, prender led verde, terminar programa"]
+ [:p.fs-5 "Prender el LED verde, esperar 1 segundo, apagar el LED verde, esperar 2 segundos, volver a prender el LED verde, y finalmente terminar el programa."]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

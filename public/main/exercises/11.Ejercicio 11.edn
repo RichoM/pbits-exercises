@@ -1,6 +1,11 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5 "Hacer parpadear todos los leds pero cada uno a una frecuencia diferente (R: 1s, A: 2s, V: 1/2s)"]
+ [:p.fs-5 
+  [:div "Hacer parpadear todos los LEDs pero cada uno a una frecuencia diferente:"]
+  [:ul
+   [:li "El rojo cada 1 segundo."]
+   [:li "El amarillo cada 2 segundos."]
+   [:li "Y el verde cada medio segundo."]]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

@@ -1,6 +1,8 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5 "Prender todos los leds en orden (RAV) con una diferencia de 100 ms entre cada uno, luego apagarlos en el mismo orden y con el mismo delay, volver a empezar."]
+ [:p.fs-5
+  [:div "Encender todos los LEDs en secuencia (primero el rojo, luego el amarillo, y luego el verde) con una diferencia de 100 ms entre cada LED."]
+  [:div "Luego apagarlos en el mismo orden y con el mismo delay. Volver a empezar."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

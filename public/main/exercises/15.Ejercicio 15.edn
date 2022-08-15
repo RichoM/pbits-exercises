@@ -1,6 +1,6 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5 "Prender led rojo aprox 3/4 de la intensidad máxima, prender led amarillo aprox 1/2 intensidad, led verde 1/4 intensidad"]
+ [:p.fs-5 "Prender el LED rojo aproximadamente 3/4 de la intensidad máxima, prender el LED amarillo aprox. 1/2 intensidad, y el LED verde 1/4 intensidad."]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

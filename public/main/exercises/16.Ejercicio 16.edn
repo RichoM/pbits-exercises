@@ -1,6 +1,9 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5 "Dimmer con el potenciómetro y el led rojo"]
+ [:p.fs-5 
+  [:div "Armar un programa que permita controlar la intensidad del LED rojo usando el potenciómetro."]
+  [:div "Si el potenciómetro está en el ángulo 0º el LED debería apagarse y si está en el ángulo 270º debería prenderse con la intensidad máxima."]]
+ [:img.img-fluid.w-25 {:src "exercises/how-it-works-rotary-potentiometer.gif"}]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]
