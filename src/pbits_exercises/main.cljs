@@ -72,8 +72,8 @@
         (catch :default _ {:attempts []}))))
 
 (defn write-solutions-file! [{:keys [name]} solutions]
-  (go (<! (write-file! (join-path SOLUTIONS-PATH (str name ".edn"))
-                       (pr-str solutions)))))
+  (go-try (<? (write-file! (join-path SOLUTIONS-PATH (str name ".edn"))
+                           (pr-str solutions)))))
 
 (defn validate-phb! [file-path]
   (go (try
@@ -217,10 +217,8 @@
 (defn init []
   (go (hide-overlay!)
       (<! (update-ui!))
-
       (add-watch state ::ui-update
-                 (fn [_ _ _ new]
-                   (update-ui!)))))
+                 (fn [_ _ _ _] (update-ui!)))))
 
 (defn ^:dev/before-load-async reload-begin* [done]
   (go (remove-watch state ::ui-update)
