@@ -23,4 +23,16 @@ html, body, .fullheight {
     width: 100%;
     height: 100%;
     z-index: 999999;
-  }
+}
+
+.visible {
+    visibility: visible;
+    opacity: 0.5;
+    transition: opacity 0.2s linear;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
+}

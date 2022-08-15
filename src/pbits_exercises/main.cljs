@@ -54,6 +54,16 @@
   (go (try (<? (make-dir! dir-path))
            (catch :default _ nil))))
 
+(defn show-overlay! []
+  (doto (get-element-by-id "overlay")
+    (ocall! :classList.remove "hidden")
+    (ocall! :classList.add "visible")))
+
+(defn hide-overlay! []
+  (doto (get-element-by-id "overlay")
+    (ocall! :classList.remove "visible")
+    (ocall! :classList.add "hidden")))
+
 (defn read-solutions-file! [{:keys [name]}]
   (go (try
         (if-let [contents (<? (read-file! (join-path SOLUTIONS-PATH (str name ".edn"))))]
@@ -66,21 +76,25 @@
                        (pr-str solutions)))))
 
 (defn load-solution-attempt! [{:keys [idx name] :as exercise}]
-  (go (let [result (<! (show-open-dialog!
-                        {:filters [{:name "Physical Bits project"
-                                    :extensions ["phb"]}]
-                         :properties ["openFile"]}))]
-        (when-not (oget result :canceled)
-          (let [solutions (<! (read-solutions-file! exercise))
-                [file-path] (oget result :filePaths)
-                solution-path (join-path SOLUTIONS-PATH (str name "." (count (:attempts solutions)) ".phb"))]
-            (<! (copy-file! file-path solution-path))
-            (<! (write-solutions-file! exercise
-                                       (update solutions :attempts conj
-                                               {:ts (js/Date.)
-                                                :file solution-path})))))
-        (swap! state assoc :current-exercise idx))))
-
+  (go
+    (show-overlay!)
+    (let [result (<! (show-open-dialog!
+                      {:filters [{:name "Physical Bits project"
+                                  :extensions ["phb"]}]
+                       :properties ["openFile"]}))]
+      (if (oget result :canceled)
+        (hide-overlay!)
+        (let [solutions (<! (read-solutions-file! exercise))
+              [file-path] (oget result :filePaths)
+              solution-path (join-path SOLUTIONS-PATH (str name "." (count (:attempts solutions)) ".phb"))]
+          (<! (copy-file! file-path solution-path))
+          (<! (write-solutions-file! exercise
+                                     (update solutions :attempts conj
+                                             {:ts (js/Date.)
+                                              :file solution-path})))
+          (hide-overlay!)
+          (<! (b/alert "Éxito" "La solución se guardó correctamente"))
+          (swap! state assoc :current-exercise idx))))))
 
 (defn load-exercises! []
   (go
@@ -114,57 +128,50 @@
                                                       (get @state :current-exercise -1)
                                                       (or first-unsolved (first exercises)))))]
         (crate/html
-         [:div#main-container.container-fluid.fullheight
-          [:div.row.fullheight
-           [:div#side-bar.col-2.scrollable.fullheight
-            [:ul.list-group.py-2
-             (map (fn [{:keys [idx name]}]
-                    (let [btn (crate/html [:button.list-group-item.list-group-item-action {:type "button"} name])]
-                      (oset! btn :disabled (> idx (get first-unsolved :idx ##Inf)))
-                      (when (= idx (:idx current-exercise))
-                        (ocall! btn :classList.add "active"))
-                      (b/on-click btn #(swap! state assoc :current-exercise idx))
-                      btn))
-                  exercises)]]
-           [:div.col.p-3.scrollable.fullheight
-            [:h1.text-center (:name current-exercise)]
-            [:hr]
-            (:contents current-exercise)
-            [:hr]
-            [:div.row.g-1
-             [:div.col-auto
-              (doto (crate/html [:button#open-file-btn.btn.btn-lg.btn-primary
-                                 {:type "button" :data-bs-toggle "button"}
-                                 [:i.fa-solid.fa-upload.me-2]
-                                 "Cargar solución"])
-                (b/on-click #(do (oset! (get-element-by-id "overlay") :hidden false)
-                                 (load-solution-attempt! current-exercise))))]
-             [:div.col]
-             (when (< (:idx current-exercise)
-                      (dec (count exercises)))
-               [:div.col-auto
-                (doto (crate/html [:button#next-exercise-btn.btn.btn-lg.btn-success
-                                   {:type "button" :data-bs-toggle "button"}
-                                   "Siguiente"
-                                   [:i.fa-solid.fa-arrow-right.ms-2]])
-                  (oset! :disabled (not (:solved? current-exercise)))
-                  (b/on-click #(swap! state assoc :current-exercise
-                                      (inc (:idx current-exercise)))))])]]]]))))
-
-(defn build-overlay! []
-  (go
-    (doto (crate/html [:div#overlay.overlay
-                       {:style "background-color: black; opacity: 0.5;"}])
-      (oset! :hidden true))))
+         [:div.row.fullheight
+          [:div#side-bar.col-2.scrollable.fullheight
+           [:ul.list-group.py-2
+            (map (fn [{:keys [idx name]}]
+                   (let [btn (crate/html [:button.list-group-item.list-group-item-action {:type "button"} name])]
+                     (oset! btn :disabled (> idx (get first-unsolved :idx ##Inf)))
+                     (when (= idx (:idx current-exercise))
+                       (ocall! btn :classList.add "active"))
+                     (b/on-click btn #(swap! state assoc :current-exercise idx))
+                     btn))
+                 exercises)]]
+          [:div.col.p-3.scrollable.fullheight
+           [:h1.text-center (:name current-exercise)]
+           [:hr]
+           (:contents current-exercise)
+           [:hr]
+           [:div.row.g-1
+            [:div.col-auto
+             (doto (crate/html [:button#open-file-btn.btn.btn-lg.btn-primary
+                                {:type "button" :data-bs-toggle "button"}
+                                [:i.fa-solid.fa-upload.me-2]
+                                "Cargar solución"])
+               (b/on-click #(load-solution-attempt! current-exercise)))]
+            [:div.col]
+            (when (< (:idx current-exercise)
+                     (dec (count exercises)))
+              [:div.col-auto
+               (doto (crate/html [:button#next-exercise-btn.btn.btn-lg.btn-success
+                                  {:type "button" :data-bs-toggle "button"}
+                                  "Siguiente"
+                                  [:i.fa-solid.fa-arrow-right.ms-2]])
+                 (oset! :disabled (not (:solved? current-exercise)))
+                 (b/on-click #(swap! state assoc :current-exercise
+                                     (inc (:idx current-exercise)))))])]]]))))
 
 (defn update-ui! []
-  (go (doto js/document.body
+  (go (doto (get-element-by-id "main-container")
         (oset! :innerHTML "")
-        (ocall! :appendChild (<! (build-html!)))
-        (ocall! :appendChild (<! (build-overlay!))))))
+        (ocall! :appendChild (<! (build-html!))))))
 
 (defn init []
-  (go (<! (update-ui!))
+  (go (hide-overlay!)
+      (<! (update-ui!))
+
       (add-watch state ::ui-update
                  (fn [_ _ _ new]
                    (update-ui!)))))
