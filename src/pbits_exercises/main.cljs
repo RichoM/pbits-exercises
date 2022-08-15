@@ -90,6 +90,7 @@
                       (map #(first (str/split % #"\.")))
                       (set))
           exercises (->> (<! (read-dir! EXERCISES-PATH))
+                         (filter #(str/ends-with? % ".edn"))
                          (map (fn [file-name]
                                 (let [[idx name] (str/split file-name #"\.")]
                                   {:idx (js/parseInt idx)
