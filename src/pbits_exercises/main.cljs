@@ -75,6 +75,12 @@
   (go (<! (write-file! (join-path SOLUTIONS-PATH (str name ".edn"))
                        (pr-str solutions)))))
 
+(defn validate-phb! [file-path]
+  (go (try
+        (let [{:strs [blockly code]} (js->clj (js/JSON.parse (<? (read-file! file-path))))]
+          (and blockly code))
+        (catch :default _ false))))
+
 (defn load-solution-attempt! [{:keys [idx name] :as exercise}]
   (go
     (show-overlay!)
@@ -82,19 +88,21 @@
                       {:filters [{:name "Physical Bits project"
                                   :extensions ["phb"]}]
                        :properties ["openFile"]}))]
-      (if (oget result :canceled)
-        (hide-overlay!)
-        (let [solutions (<! (read-solutions-file! exercise))
-              [file-path] (oget result :filePaths)
-              solution-path (join-path SOLUTIONS-PATH (str name "." (count (:attempts solutions)) ".phb"))]
-          (<! (copy-file! file-path solution-path))
-          (<! (write-solutions-file! exercise
-                                     (update solutions :attempts conj
-                                             {:ts (js/Date.)
-                                              :file solution-path})))
-          (hide-overlay!)
-          (<! (b/alert "Éxito" "La solución se guardó correctamente"))
-          (swap! state assoc :current-exercise idx))))))
+      (hide-overlay!)
+      (when-not (oget result :canceled)
+        (let [[file-path] (oget result :filePaths)
+              valid? (<! (validate-phb! file-path))]
+          (if-not valid?
+            (<! (b/alert "ERROR" "El archivo seleccionado NO es un proyecto de Physical Bits válido"))
+            (let [solutions (<! (read-solutions-file! exercise))
+                  solution-path (join-path SOLUTIONS-PATH (str name "." (count (:attempts solutions)) ".phb"))]
+              (<! (copy-file! file-path solution-path))
+              (<! (write-solutions-file! exercise
+                                         (update solutions :attempts conj
+                                                 {:ts (js/Date.)
+                                                  :file solution-path})))
+              (<! (b/alert "Éxito" "La solución se guardó correctamente"))
+              (swap! state assoc :current-exercise idx))))))))
 
 (defn load-exercises! []
   (go
