@@ -1,0 +1,14 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 "Parpadear led verde (la primer vez 1s, la segunda 2s, la tercera 3s, y luego vuelvo a empezar)"]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 698 :height 370 :controls true}
+  [:source {:src "exercises/8.mov" :type "video/mp4"}]]]

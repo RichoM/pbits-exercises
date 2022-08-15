@@ -1,0 +1,14 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 "Prender led amarillo, esperar 3s, apagar led amarillo, terminar programa"]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 774 :height 440 :controls true}
+  [:source {:src "exercises/2.mov" :type "video/mp4"}]]]

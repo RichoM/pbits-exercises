@@ -1,0 +1,14 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 "Prender todos los leds en orden (RAV) con una diferencia de 100 ms entre cada uno, luego apagarlos en el mismo orden y con el mismo delay, volver a empezar."]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 706 :height 324 :controls true}
+  [:source {:src "exercises/9.mov" :type "video/mp4"}]]]
