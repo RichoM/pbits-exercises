@@ -18,6 +18,7 @@ function createWindow() {
     win = new BrowserWindow({
         show: false,
         autoHideMenuBar: true,
+        icon: path.resolve(app.getAppPath(), "my-homework.ico"),
         webPreferences: {
             enableRemoteModule: true,
             nodeIntegration: true,
