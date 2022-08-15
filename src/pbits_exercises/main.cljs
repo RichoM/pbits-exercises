@@ -8,13 +8,20 @@
             [utils.bootstrap :as b]
             [utils.async :refer [go-try <?]]))
 
-(def dialog (oget (js/require "@electron/remote") :dialog))
+(def electron-remote (js/require "@electron/remote"))
+(def dialog (oget electron-remote :dialog))
 (def fs (oget (js/require "fs") :promises))
+(def path (js/require "path"))
+(def app (oget electron-remote :app))
+
 
 (enable-console-print!)
 
-(def EXERCISES-PATH "public/main/exercises")
-(def SOLUTIONS-PATH "solutions")
+(defn join-path [parent child]
+  (ocall! path :resolve parent child))
+
+(def EXERCISES-PATH (join-path (ocall! app :getAppPath) "public/main/exercises"))
+(def SOLUTIONS-PATH (join-path (ocall! app :getAppPath) "solutions"))
 
 (defonce state (atom {}))
 
@@ -46,13 +53,13 @@
 
 (defn read-solutions-file! [{:keys [name]}]
   (go (try
-        (if-let [contents (<? (read-file! (str SOLUTIONS-PATH "/" name ".edn")))]
+        (if-let [contents (<? (read-file! (join-path SOLUTIONS-PATH (str name ".edn"))))]
           (reader/read-string contents)
           (throw "ERROR!"))
         (catch :default _ {:attempts []}))))
 
 (defn write-solutions-file! [{:keys [name]} solutions]
-  (go (<! (write-file! (str SOLUTIONS-PATH "/" name ".edn")
+  (go (<! (write-file! (join-path SOLUTIONS-PATH (str name ".edn"))
                        (pr-str solutions)))))
 
 (defn load-solution-attempt! [{:keys [idx name] :as exercise}]
@@ -63,7 +70,7 @@
         (when-not (oget result :canceled)
           (let [solutions (<! (read-solutions-file! exercise))
                 [file-path] (oget result :filePaths)
-                solution-path (str SOLUTIONS-PATH "/" name "." (count (:attempts solutions)) ".phb")]
+                solution-path (join-path SOLUTIONS-PATH (str name "." (count (:attempts solutions)) ".phb"))]
             (<! (copy-file! file-path solution-path))
             (<! (write-solutions-file! exercise
                                        (update solutions :attempts conj
@@ -84,7 +91,7 @@
                                 (let [[idx name] (str/split file-name #"\.")]
                                   {:idx (js/parseInt idx)
                                    :name (str/trim name)
-                                   :file-path (str EXERCISES-PATH "/" file-name)
+                                   :file-path (join-path EXERCISES-PATH file-name)
                                    :solved? (contains? solved name)})))
                          (sort-by :idx)
                          (map-indexed (fn [idx ex] (assoc ex :idx idx)))
