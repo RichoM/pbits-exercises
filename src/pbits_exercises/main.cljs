@@ -25,6 +25,9 @@
 
 (defonce state (atom {}))
 
+(defn get-element-by-id [id]
+  (js/document.getElementById id))
+
 (defn show-open-dialog! [options]
   (p->c (ocall! dialog :showOpenDialog (clj->js options))))
 
@@ -75,8 +78,8 @@
             (<! (write-solutions-file! exercise
                                        (update solutions :attempts conj
                                                {:ts (js/Date.)
-                                                :file solution-path})))
-            (swap! state assoc :current-exercise idx))))))
+                                                :file solution-path})))))
+        (swap! state assoc :current-exercise idx))))
 
 
 (defn load-exercises! []
@@ -106,8 +109,8 @@
 (defn build-html! []
   (go (let [exercises (<! (load-exercises!))
             first-unsolved (first (remove :solved? exercises))
-            current-exercise (<! (read-exercise! (nth exercises 
-                                                      (get @state :current-exercise -1) 
+            current-exercise (<! (read-exercise! (nth exercises
+                                                      (get @state :current-exercise -1)
                                                       (or first-unsolved (first exercises)))))]
         (crate/html
          [:div#main-container.container-fluid.fullheight
@@ -133,7 +136,8 @@
                                  {:type "button" :data-bs-toggle "button"}
                                  [:i.fa-solid.fa-upload.me-2]
                                  "Cargar solución"])
-                (b/on-click #(load-solution-attempt! current-exercise)))]
+                (b/on-click #(do (oset! (get-element-by-id "overlay") :hidden false)
+                                 (load-solution-attempt! current-exercise))))]
              [:div.col]
              (when (< (:idx current-exercise)
                       (dec (count exercises)))
@@ -146,10 +150,17 @@
                   (b/on-click #(swap! state assoc :current-exercise
                                       (inc (:idx current-exercise)))))])]]]]))))
 
+(defn build-overlay! []
+  (go
+    (doto (crate/html [:div#overlay.overlay
+                       {:style "background-color: black; opacity: 0.5;"}])
+      (oset! :hidden true))))
+
 (defn update-ui! []
   (go (doto js/document.body
         (oset! :innerHTML "")
-        (ocall! :appendChild (<! (build-html!))))))
+        (ocall! :appendChild (<! (build-html!)))
+        (ocall! :appendChild (<! (build-overlay!))))))
 
 (defn init []
   (go (<! (update-ui!))

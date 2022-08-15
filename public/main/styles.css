@@ -16,3 +16,11 @@ html, body, .fullheight {
     overflow-x: auto !important;
     overflow-y: scroll !important;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+  }
