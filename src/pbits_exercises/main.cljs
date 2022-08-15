@@ -55,7 +55,7 @@
   (go (<! (write-file! (str SOLUTIONS-PATH "/" name ".edn")
                        (pr-str solutions)))))
 
-(defn load-solution-attempt! [{:keys [name] :as exercise}]
+(defn load-solution-attempt! [{:keys [idx name] :as exercise}]
   (go (let [result (<! (show-open-dialog!
                         {:filters [{:name "Physical Bits project"
                                     :extensions ["phb"]}]
@@ -69,8 +69,7 @@
                                        (update solutions :attempts conj
                                                {:ts (js/Date.)
                                                 :file solution-path})))
-            (swap! state assoc :current-exercise
-                   (assoc exercise :solved? true)))))))
+            (swap! state assoc :current-exercise idx))))))
 
 
 (defn load-exercises! []
@@ -100,18 +99,20 @@
 (defn build-html! []
   (go (let [exercises (<! (load-exercises!))
             first-unsolved (first (remove :solved? exercises))
-            current-exercise (<! (read-exercise! (get @state :current-exercise first-unsolved)))]
+            current-exercise (<! (read-exercise! (nth exercises 
+                                                      (get @state :current-exercise -1) 
+                                                      (or first-unsolved (first exercises)))))]
         (crate/html
          [:div#main-container.container-fluid.fullheight
           [:div.row.fullheight
            [:div#side-bar.col-2.scrollable.fullheight
             [:ul.list-group.py-2
-             (map (fn [{:keys [idx name] :as ex}]
+             (map (fn [{:keys [idx name]}]
                     (let [btn (crate/html [:button.list-group-item.list-group-item-action {:type "button"} name])]
                       (oset! btn :disabled (> idx (get first-unsolved :idx ##Inf)))
                       (when (= idx (:idx current-exercise))
                         (ocall! btn :classList.add "active"))
-                      (b/on-click btn #(swap! state assoc :current-exercise ex))
+                      (b/on-click btn #(swap! state assoc :current-exercise idx))
                       btn))
                   exercises)]]
            [:div.col.p-3.scrollable.fullheight
@@ -136,7 +137,7 @@
                                    [:i.fa-solid.fa-arrow-right.ms-2]])
                   (oset! :disabled (not (:solved? current-exercise)))
                   (b/on-click #(swap! state assoc :current-exercise
-                                      (nth exercises (inc (:idx current-exercise)) nil))))])]]]]))))
+                                      (inc (:idx current-exercise)))))])]]]]))))
 
 (defn update-ui! []
   (go (doto js/document.body
