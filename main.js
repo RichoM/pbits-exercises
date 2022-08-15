@@ -37,7 +37,7 @@ function createWindow() {
     win.loadFile(path.resolve(app.getAppPath(), "public/main/index.html"));
     win.maximize();
 
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
 
     // Initialize @electron/remote so that we can use it from renderer process
     require('@electron/remote/main').initialize();
