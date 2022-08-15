@@ -1,0 +1,18 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 "Hacer parpadear todos los leds pero con diferentes tiempos de encendido y apagado.
+R: 1s encendido, 1s apagado
+A: 1s encendido, 1500 ms apagado
+V: 1s encendido, 2s apagado
+"]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 728 :height 274 :controls true}
+  [:source {:src "exercises/12.mov" :type "video/mp4"}]]]

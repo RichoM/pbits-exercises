@@ -1,0 +1,15 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 "Semáforo: R (3s), RA (1s), V (3s), A (1s) y vuelve a empezar"]
+ [:img.img-fluid {:src "exercises/13.png"}]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 790 :height 260 :controls true}
+  [:source {:src "exercises/13.mov" :type "video/mp4"}]]]

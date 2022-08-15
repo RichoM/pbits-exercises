@@ -1,0 +1,14 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 "Hacer parpadear todos los leds pero cada uno a una frecuencia diferente (R: 1s, A: 2s, V: 1/2s)"]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 748 :height 304 :controls true}
+  [:source {:src "exercises/11.mov" :type "video/mp4"}]]]
