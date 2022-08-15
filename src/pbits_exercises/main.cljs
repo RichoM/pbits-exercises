@@ -81,28 +81,57 @@
           (and blockly code))
         (catch :default _ false))))
 
+(defn check-for-duplicates! [file-path]
+  (go-try
+   (let [result (atom false)
+         contents-1 (<? (read-file! file-path))]
+     (doseq [each (map (partial join-path SOLUTIONS-PATH)
+                       (filter #(str/ends-with? % ".phb")
+                          (<? (read-dir! SOLUTIONS-PATH))))]
+       (when-let [contents-2 (<! (try-read-file! each))]
+         (when (= contents-1 contents-2)
+           (reset! result true))))
+     @result)))
+
+(defn show-spinner-dialog! []
+  (-> (b/make-modal
+       :body [:div.container.overflow-hidden
+              [:div.row.text-center [:h3 "Validando solución..."]]
+              [:div.row.m-1]
+              [:div.row.text-center [:i.fas.fa-circle-notch.fa-spin.fa-4x]]])
+      (b/show-modal {:backdrop "static"
+                     :keyboard false})))
+
 (defn load-solution-attempt! [{:keys [idx name] :as exercise}]
-  (go
-    (show-overlay!)
-    (let [result (<! (show-open-dialog!
-                      {:filters [{:name "Physical Bits project"
-                                  :extensions ["phb"]}]
-                       :properties ["openFile"]}))]
-      (hide-overlay!)
-      (when-not (oget result :canceled)
-        (let [[file-path] (oget result :filePaths)
-              valid? (<! (validate-phb! file-path))]
-          (if-not valid?
-            (<! (b/alert "ERROR" "El archivo seleccionado NO es un proyecto de Physical Bits válido"))
-            (let [solutions (<! (read-solutions-file! exercise))
-                  solution-path (join-path SOLUTIONS-PATH (str name "." (count (:attempts solutions)) ".phb"))]
-              (<! (copy-file! file-path solution-path))
-              (<! (write-solutions-file! exercise
-                                         (update solutions :attempts conj
-                                                 {:ts (js/Date.)
-                                                  :file solution-path})))
-              (<! (b/alert "Éxito" "La solución se guardó correctamente"))
-              (swap! state assoc :current-exercise idx))))))))
+  (go    
+    (try
+      (show-overlay!)
+      (let [result (<! (show-open-dialog!
+                        {:filters [{:name "Physical Bits project"
+                                    :extensions ["phb"]}]
+                         :properties ["openFile"]}))]
+        (hide-overlay!)
+        (when-not (oget result :canceled)
+          (show-spinner-dialog!)
+          (let [[file-path] (oget result :filePaths)
+                valid? (<! (validate-phb! file-path))]
+            (if-not valid?
+              (<! (b/alert "ERROR" "El archivo seleccionado NO es un proyecto de Physical Bits válido"))
+              (let [duplicated? (<! (check-for-duplicates! file-path))]
+                (if duplicated?
+                  (<! (b/alert "ERROR" "El archivo seleccionado ya fue cargado como solución a un ejercicio. Intente nuevamente."))
+                  (let [solutions (<! (read-solutions-file! exercise))
+                        solution-path (join-path SOLUTIONS-PATH (str name "." (count (:attempts solutions)) ".phb"))]
+                    (<! (copy-file! file-path solution-path))
+                    (<! (write-solutions-file! exercise
+                                               (update solutions :attempts conj
+                                                       {:ts (js/Date.)
+                                                        :file solution-path})))
+                    (<! (b/alert "Éxito" "La solución se guardó correctamente"))
+                    (swap! state assoc :current-exercise idx))))))))
+      (catch :default error
+        (js/console.error error)
+        (b/alert "ERROR" "Ocurrió un error al tratar de cargar la solución. Intente nuevamente.")))))
 
 (defn load-exercises! []
   (go
