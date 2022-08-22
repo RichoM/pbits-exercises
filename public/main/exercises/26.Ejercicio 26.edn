@@ -1,0 +1,24 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5
+  [:div "Parpadear led rojo a diferente frecuencia dependiendo de qué botón esté presionado:
+Cada 1s si el botón A está presionado
+Cada 2s si el botón B está presionado
+Cada 500 ms si ambos botones están presionados
+Cada 100 ms si ninguno de los botones está presionado
+"]]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]
+   [:tr [:td "LDR"] [:td "A5"]]
+   [:tr [:td "Botón A"] [:td "D7"]]
+   [:tr [:td "Botón B"] [:td "D8"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 800 :height 450 :controls true}
+  [:source {:src "exercises/26.mov" :type "video/mp4"}]]]
