@@ -16,4 +16,4 @@ Then connect to the nREPL on port 9000.
 
 Just run the `build.bat` and the output will be written to `/out`.
 
-You'll need both [shadow-cljs](https://github.com/thheller/shadow-cljs) [electron-packager](https://github.com/electron/electron-packager) installed globally.
+You'll need both [shadow-cljs](https://github.com/thheller/shadow-cljs) and [electron-packager](https://github.com/electron/electron-packager) installed globally.
