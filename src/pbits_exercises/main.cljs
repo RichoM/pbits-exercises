@@ -3,7 +3,7 @@
             [cljs.core.async.interop :refer [p->c] :refer-macros [<p!]]
             [clojure.string :as str]
             [cljs.reader :as reader]
-            [oops.core :refer [oget oset! ocall!]]
+            [oops.core :refer [oget oset! ocall! ocall!+]]
             [crate.core :as crate]
             [utils.bootstrap :as b]
             [utils.async :refer [go-try <?]]))
@@ -157,68 +157,95 @@
   (go (let [contents (<! (read-file! (:file-path exercise)))]
         (assoc exercise :contents (reader/read-string contents)))))
 
+(def main-container
+  (crate/html
+   [:div.row.fullheight
+    [:div#side-bar-container.col-2.scrollable.fullheight
+     [:ul#exercises-bar.list-group.py-2]]
+    [:div#current-exercise-container.col.p-3.scrollable.fullheight
+     [:div.row
+      [:div#current-exercise-solved-mark.col]
+      [:div.col-auto [:h1#current-exercise-name.text-center]]
+      [:div.col]]
+     [:hr]
+     [:div#current-exercise-contents]
+     [:hr]
+     [:div.row.g-1
+      [:div.col-auto
+       [:button#load-solution-btn.btn.btn-lg.btn-primary
+        {:type "button" :data-bs-toggle "button"}
+        [:i.fa-solid.fa-upload.me-2]
+        "Cargar solución"]]
+      [:div.col]
+      [:div.col-auto
+       [:button#next-exercise-btn.btn.btn-lg.btn-success
+        {:type "button" :data-bs-toggle "button"}
+        "Siguiente"
+        [:i.fa-solid.fa-arrow-right.ms-2]]]]]]))
 
-(defn build-html! []
+(defn update-ui! [dirty-contents?]
   (go (let [exercises (<! (load-exercises!))
             first-unsolved (first (remove :solved? exercises))
             current-exercise (<! (read-exercise! (nth exercises
                                                       (get @state :current-exercise -1)
                                                       (or first-unsolved (first exercises)))))]
-        (crate/html
-         [:div.row.fullheight
-          [:div#side-bar.col-2.scrollable.fullheight
-           [:ul.list-group.py-2
-            (map (fn [{:keys [idx name solved?]}]
-                   (let [btn (crate/html [:button.list-group-item.list-group-item-action {:type "button"} name])]
-                     (oset! btn :disabled (> idx (get first-unsolved :idx ##Inf)))
-                     (if (= idx (:idx current-exercise))
-                       (ocall! btn :classList.add "active")
-                       (if solved?
-                         (ocall! btn :classList.add "list-group-item-success")
-                         (ocall! btn :classList.add "list-group-item-primary")))
-                     
-                     (b/on-click btn #(swap! state assoc :current-exercise idx))
-                     btn))
-                 exercises)]]
-          [:div.col.p-3.scrollable.fullheight
-           [:div.row
-            [:div.col (if (:solved? current-exercise)
-                        [:i.fs-1.text-success.fa-solid.fa-circle-check]
-                        [:i.fs-1.text-danger.fa-solid.fa-circle-xmark])]
-            [:div.col-auto [:h1.text-center (:name current-exercise)]]
-            [:div.col]]
-           [:hr]
-           (:contents current-exercise)
-           [:hr]
-           [:div.row.g-1
-            [:div.col-auto
-             (doto (crate/html [:button#open-file-btn.btn.btn-lg.btn-primary
-                                {:type "button" :data-bs-toggle "button"}
-                                [:i.fa-solid.fa-upload.me-2]
-                                "Cargar solución"])
-               (b/on-click #(load-solution-attempt! current-exercise)))]
-            [:div.col]
-            (when (< (:idx current-exercise)
-                     (dec (count exercises)))
-              [:div.col-auto
-               (doto (crate/html [:button#next-exercise-btn.btn.btn-lg.btn-success
-                                  {:type "button" :data-bs-toggle "button"}
-                                  "Siguiente"
-                                  [:i.fa-solid.fa-arrow-right.ms-2]])
-                 (oset! :disabled (not (:solved? current-exercise)))
-                 (b/on-click #(swap! state assoc :current-exercise
-                                     (inc (:idx current-exercise)))))])]]]))))
-
-(defn update-ui! []
-  (go (doto (get-element-by-id "main-container")
-        (oset! :innerHTML "")
-        (ocall! :appendChild (<! (build-html!))))))
+        (doto (get-element-by-id "current-exercise-solved-mark")
+          (oset! :innerHTML "")
+          (ocall! :appendChild
+                  (crate/html (if (:solved? current-exercise)
+                                [:i.fs-1.text-success.fa-solid.fa-circle-check]
+                                [:i.fs-1.text-danger.fa-solid.fa-circle-xmark]))))
+        (oset! (get-element-by-id "current-exercise-name")
+               :innerText (:name current-exercise))
+        (when dirty-contents?
+          (oset! (get-element-by-id "current-exercise-container") :scrollTop 0)
+          (doto (get-element-by-id "current-exercise-contents")
+            (oset! :innerHTML "")
+            (ocall! :appendChild (crate/html (:contents current-exercise)))))
+        (doto (b/replace-with-clone! (get-element-by-id "load-solution-btn"))
+          (b/on-click #(load-solution-attempt! current-exercise)))
+        (doto (b/replace-with-clone! (get-element-by-id "next-exercise-btn"))
+          (oset! :hidden (>= (:idx current-exercise)
+                             (dec (count exercises))))
+          (oset! :disabled (not (:solved? current-exercise)))
+          (b/on-click #(swap! state assoc :current-exercise
+                              (inc (:idx current-exercise)))))
+        (let [exercises-bar (get-element-by-id "exercises-bar")]
+          (doseq [{:keys [idx name solved?]} exercises]
+            (let [element-id (str "exercise-" idx "-btn")
+                  update-btn! (fn [btn]
+                                (oset! btn :disabled (> idx (get first-unsolved :idx ##Inf)))
+                                (if (= idx (:idx current-exercise))
+                                  (doto btn
+                                    (ocall! :classList.add "active")
+                                    (ocall! :classList.remove "list-group-item-success")
+                                    (ocall! :classList.remove "list-group-item-primary"))
+                                  (doto btn
+                                    (ocall! :classList.remove "active")
+                                    (ocall!+ (if solved? :classList.add :classList.remove) "list-group-item-success")
+                                    (ocall!+ (if solved? :classList.remove :classList.add) "list-group-item-primary"))))]
+              (if-let [btn (ocall! exercises-bar :querySelector (str "#" element-id))]
+                (update-btn! btn)
+                (let [btn (crate/html [:button.list-group-item.list-group-item-action
+                                       {:id element-id :type "button"} name])]
+                  (ocall! exercises-bar :appendChild btn)
+                  (b/on-click btn #(swap! state assoc :current-exercise idx))
+                  (update-btn! btn)))))
+          (doseq [to-remove (filter #(let [idx (js/parseInt (second (str/split (oget % :id) "-")))]
+                                       (>= idx (count exercises)))
+                                    (oget exercises-bar :childNodes))]
+            (ocall! to-remove :remove))))))
 
 (defn init []
-  (go (hide-overlay!)
-      (<! (update-ui!))
+  (go (doto (get-element-by-id "main-container")
+        (oset! :innerHTML "")
+        (ocall! :appendChild main-container))
       (add-watch state ::ui-update
-                 (fn [_ _ _ _] (update-ui!)))))
+                 (fn [_ _ prev curr]
+                   (update-ui! (not= (:current-exercise prev)
+                                     (:current-exercise curr)))))
+      (<! (update-ui! true))
+      (hide-overlay!)))
 
 (defn ^:dev/before-load-async reload-begin* [done]
   (go (remove-watch state ::ui-update)
