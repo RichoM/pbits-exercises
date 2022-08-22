@@ -1,7 +1,14 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:div "Ping pong. Pero los leds sólo se prenden si el LDR está tapado"]]
+  [:div "Si el LDR está descubierto apagar todos los LEDs."]
+  [:div "Si está tapado hacer la secuencia:"]
+  [:ol
+   [:li [:i.fa-solid.fa-square.text-danger.me-2] "Rojo"]
+   [:li [:i.fa-solid.fa-square.text-warning.me-2] "Amarillo"]
+   [:li [:i.fa-solid.fa-square.text-success.me-2] "Verde"]
+   [:li [:i.fa-solid.fa-square.text-warning.me-2] "Amarillo"]
+   [:li "y volver a empezar..."]]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

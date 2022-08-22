@@ -1,10 +1,15 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:div "Parpadear sólo uno de los leds dependiendo de la posición del potenciómetro (R: entre 0 y 0.33, A: 0.33 a 0.66, V: 0.66 a 1), la frecuencia depende de qué botones están presionados:
-Si alguno de los botones está presionado cada 100 ms
-Caso contrario, 200 ms
-"]]
+  [:div "Hacer parpadear sólo uno de los tres LEDs dependiendo del ángulo del potenciómetro:"]
+  [:ul
+   [:li "Entre 0º y 90º: el LED rojo."]
+   [:li "Entre 90º y 180º: el LED amarillo."]
+   [:li "Entre 180º y 270º: el LED verde."]]
+  [:div "La frecuencia depende de qué botones estén presionados:"]
+  [:ul
+   [:li "Si cualquiera de los 2 botones está presionado, cada 100 ms."]
+   [:li "Caso contrario, 200 ms."]]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]
@@ -14,7 +19,6 @@ Caso contrario, 200 ms
    [:tr [:td "LED amarillo"] [:td "D10"]]
    [:tr [:td "LED verde"] [:td "D9"]]
    [:tr [:td "Potenciómetro"] [:td "A4"]]
-   [:tr [:td "LDR"] [:td "A5"]]
    [:tr [:td "Botón A"] [:td "D7"]]
    [:tr [:td "Botón B"] [:td "D8"]]]]
  [:h4 "Ejemplo"]

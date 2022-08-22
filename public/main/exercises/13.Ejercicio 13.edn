@@ -2,7 +2,7 @@
  [:h3 "Consigna"]
  [:p.fs-5 "Armar un programa que prenda y apague los 3 LEDs (rojo, amarillo, y verde) siguiendo la secuencia normal de un semáforo."] 
  [:div.alert.alert-warning {:role "alert"} "IMPORTANTE: Prestar atención a todos los pasos de la secuencia."]
- [:img.img-fluid {:src "exercises/13.png"}]
+ [:img.img-fluid {:src "exercises/traffic-light.png"}]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

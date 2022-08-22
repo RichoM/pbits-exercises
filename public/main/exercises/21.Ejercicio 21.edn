@@ -1,7 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:div "Prender led rojo sólo si el botón A está presionado"]]
+  [:div "Prender el LED rojo sólo cuando el botón A esté presionado."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]
@@ -10,8 +10,6 @@
    [:tr [:td "LED rojo"] [:td "D11"]]
    [:tr [:td "LED amarillo"] [:td "D10"]]
    [:tr [:td "LED verde"] [:td "D9"]]
-   [:tr [:td "Potenciómetro"] [:td "A4"]]
-   [:tr [:td "LDR"] [:td "A5"]]
    [:tr [:td "Botón A"] [:td "D7"]]
    [:tr [:td "Botón B"] [:td "D8"]]]]
  [:h4 "Ejemplo"]

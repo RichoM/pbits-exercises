@@ -1,7 +1,15 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:div "Semáforo si el LDR está tapado y los 2 botones están presionados, sino ping pong a 100 ms"]]
+  [:p "Si el LDR está tapado y ambos botones están presionados implementar la secuencia de luces del semáforo:"]
+  [:img.img-fluid {:src "exercises/traffic-light.png"}]
+  [:p.mt-2 "En caso contrario, la secuencia siguiente (con 100 ms de diferencia entre cada LED):"
+   [:ol
+    [:li [:i.fa-solid.fa-square.text-danger.me-2] "Rojo"]
+    [:li [:i.fa-solid.fa-square.text-warning.me-2] "Amarillo"]
+    [:li [:i.fa-solid.fa-square.text-success.me-2] "Verde"]
+    [:li [:i.fa-solid.fa-square.text-warning.me-2] "Amarillo"]
+    [:li "y volver a empezar..."]]]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

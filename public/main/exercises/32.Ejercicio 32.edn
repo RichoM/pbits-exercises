@@ -1,7 +1,12 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:div "Ir prendiendo los leds en secuencia con diferencia de 100 ms cada uno (primero prendo todos, luego apago todos, y así). Si el valor del potenciómetro es mayor a 0.5 la secuencia es RAV, sino VAR."]]
+  [:div "Prender todos los LEDs en secuencia con una diferencia de 100 ms cada uno. Cuando todos los LEDs estén prendidos, apagarlos en el mismo orden y con la misma diferencia de tiempo."]
+  [:div "La secuencia dependerá del ángulo del potenciómetro:"]
+  [:ul
+   [:li "Mayor a 135º: rojo, amarillo, verde."]
+   [:li "Menor a 135º: verde, amarillo, rojo."]]]
+ [:img.img-fluid.w-25 {:src "exercises/how-it-works-rotary-potentiometer.gif"}]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]
@@ -10,10 +15,7 @@
    [:tr [:td "LED rojo"] [:td "D11"]]
    [:tr [:td "LED amarillo"] [:td "D10"]]
    [:tr [:td "LED verde"] [:td "D9"]]
-   [:tr [:td "Potenciómetro"] [:td "A4"]]
-   [:tr [:td "LDR"] [:td "A5"]]
-   [:tr [:td "Botón A"] [:td "D7"]]
-   [:tr [:td "Botón B"] [:td "D8"]]]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]]]
  [:h4 "Ejemplo"]
  [:video {:width 800 :height 450 :controls true}
   [:source {:src "exercises/32.mov" :type "video/mp4"}]]]
