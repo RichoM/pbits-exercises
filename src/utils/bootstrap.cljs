@@ -22,6 +22,12 @@
                            (when (= kc keycode)
                              (callback)))))))
 
+(defn replace-with-clone! [element]
+  (let [clone (.cloneNode element true)]
+    (when-let [parent (.-parentNode element)]
+      (.replaceChild parent clone element))
+    clone))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Modals
 (defonce current-modal (atom nil))
