@@ -1,7 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Reproducir tono (sin duración) dependiendo del valor del potenciómetro (0 a 1000) pero sólo si el tono a reproducir es mayor o igual a 220, caso contrario silencio."]]
+  [:p "Reproducir un sonido (sin especificar duración) dependiendo del valor del potenciómetro (0 a 1000) pero sólo si el tono a reproducir es mayor o igual a 220, en caso contrario hacer silencio."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]
@@ -13,4 +13,5 @@
    [:tr [:td "Potenciómetro"] [:td "A4"]]
    [:tr [:td "LDR"] [:td "A5"]]
    [:tr [:td "Botón A"] [:td "D7"]]
-   [:tr [:td "Botón B"] [:td "D8"]]]]]
+   [:tr [:td "Botón B"] [:td "D8"]]
+   [:tr [:td "Buzzer"] [:td "D2"]]]]]

@@ -1,7 +1,13 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Ídem anterior pero si los contadores son iguales se prende el led amarillo"]]
+  [:div "Implementar 2 contadores:"]
+  [:ul
+   [:li "uno registra la cantidad de veces presionado el botón A"]
+   [:li " y el otro registra las veces presionado el botón B"]]
+  [:div "Si el contador del botón A es mayor al del botón B se prende sólo el LED rojo."]
+  [:div "Si el contador del botón B es mayor al del botón A, se prende sólo el LED verde."]
+  [:div "Y si son iguales, se prende el LED amarillo."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

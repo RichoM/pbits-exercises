@@ -1,7 +1,11 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "2 contadores (1 para cada botón), si contador del botón A es mayor al del botón B se prende el led rojo, sino el verde."]]
+  [:div "Implementar 2 contadores:"]
+  [:ul
+   [:li "uno registra la cantidad de veces presionado el botón A"]
+   [:li " y el otro registra las veces presionado el botón B"]]
+  [:div "Si el contador del botón A es mayor al del botón B se prende sólo el LED rojo. Caso contrario, se prende sólo el LED verde."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

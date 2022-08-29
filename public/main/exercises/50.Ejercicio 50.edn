@@ -1,7 +1,8 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Ídem pero cuando presiono y suelto cualquiera de los 2 botones"]]
+  [:div "Hacer parpadear el LED rojo cada 100 ms."]
+  [:div "Cada vez que se presiona y suelta cualquiera de los 2 botones se duplica el delay."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

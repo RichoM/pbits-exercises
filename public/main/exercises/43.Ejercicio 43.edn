@@ -1,8 +1,8 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Ídem pero sólo con presionar (no esperar a que suelte el botón)
-"]]
+  [:p "Cada vez que se presiona el botón A se invierte el estado de los 3 LEDs."]
+  [:div.alert.alert-warning {:role "alert"} "IMPORTANTE: A diferencia del ejercicio anterior ahora NO hay que esperar a que se suelte el botón."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

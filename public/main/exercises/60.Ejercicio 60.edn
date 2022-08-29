@@ -1,7 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Sistema de alarma: cuando se tape el LDR deberá sonar una alarma. Para apagar la alarma se deberá presionar cualquiera de los 2 botones"]]
+  [:p "Cuando se tape el LDR deberá activarse una alarma. Para apagar la alarma se deberá presionar cualquiera de los 2 botones."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]
@@ -13,4 +13,5 @@
    [:tr [:td "Potenciómetro"] [:td "A4"]]
    [:tr [:td "LDR"] [:td "A5"]]
    [:tr [:td "Botón A"] [:td "D7"]]
-   [:tr [:td "Botón B"] [:td "D8"]]]]]
+   [:tr [:td "Botón B"] [:td "D8"]]
+   [:tr [:td "Buzzer"] [:td "D2"]]]]]

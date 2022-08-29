@@ -1,7 +1,9 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Alternar led rojo cada 1s, cada vez que presiono botón A se reduce el delay a la mitad. Cuando el delay es menor a 25 ms vuelve a 1 s."]]
+  [:div "Hacer parpadear el LED rojo cada 1 segundo."]
+  [:div "Cada vez que se presiona el botón A se reduce el delay a la mitad."]
+  [:div "Cuando el delay es menor a 25 ms vuelve automáticamente a 1 segundo."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

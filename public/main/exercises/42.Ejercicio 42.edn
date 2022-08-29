@@ -1,7 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Cada vez que presiono y suelto el botón se alternan los 3 leds"]]
+  [:p "Cada vez que se presiona y suelta el botón A se invierte el estado de los 3 LEDs."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

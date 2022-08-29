@@ -1,7 +1,9 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Alternar los pines cada 1s, cada vez que presiono el botón A se incrementa el delay en 100 ms, y cada vez que se presiona el botón B se decrementa 100 ms."]]
+  [:div "Hacer parpadear los 3 LEDs cada 1 segundo."]
+  [:div "Cada vez que se presiona el botón A se incrementa el delay en 100 ms."]
+  [:div "Y cada vez que se presiona el botón B se decrementa el delay en 100 ms."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

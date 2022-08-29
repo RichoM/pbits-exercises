@@ -1,7 +1,16 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Ídem pero cada vez que se presiona el botón B se cambia el led al siguiente (secuencia RAV, y vuelve a empezar)."]]
+  [:p "Hacer parpadear uno de los LEDs cada 1 segundo (empezando por el rojo)."]
+  [:p
+   [:div "Cada vez que se presiona el botón A se reduce el delay a la mitad."]
+   [:div "Cuando el delay es menor a 25 ms vuelve automáticamente a 1 segundo."]]
+  [:p "Cada vez que se presiona el botón B se cambia el LED por el siguiente, en orden:"]
+  [:ol
+   [:li [:i.fa-solid.fa-square.text-danger.me-2] "Rojo"]
+   [:li [:i.fa-solid.fa-square.text-warning.me-2] "Amarillo"]
+   [:li [:i.fa-solid.fa-square.text-success.me-2] "Verde"]
+   [:li "y vuelve a empezar..."]]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

@@ -1,7 +1,8 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Prender y apagar el led rojo con diferente delay para el prendido y el apagado. Ambos arrancan en 50ms. Cada vez que presiono el botón A se duplica el tiempo prendido, cada vez que presiono el botón B se duplica el tiempo apagado."]]
+  [:div "Prender y apagar el LED rojo con diferentes tiempos de prendido y apagado (empezando ambos en 50 ms)."]
+  [:div "Cada vez que se presiona el botón A se duplica el tiempo prendido, y cada vez que se presiona el botón B se duplica el tiempo apagado."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

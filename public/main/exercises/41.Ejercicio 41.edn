@@ -1,7 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Cada vez que presiono y suelto el botón A se alterna el estado del led rojo."]]
+  [:p "Cada vez que se presiona y suelta el botón A se invierte el estado del LED rojo (es decir que si estaba prendido pasa a estar apagado, y viceversa)."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]
