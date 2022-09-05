@@ -1,0 +1,18 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5
+  [:p "Mover el motor CC hacia atrás a la velocidad máxima durante 1 segundo, detener el motor durante ½ segundo, mover el motor hacia adelante a la velocidad máxima por 1 segundo, detener el motor por ½ segundo, volver a empezar"]]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]
+   [:tr [:td "LDR"] [:td "A5"]]
+   [:tr [:td "Botón A"] [:td "D7"]]
+   [:tr [:td "Botón B"] [:td "D8"]]
+   [:tr [:td "Servomotor"] [:td "D2"]]
+   [:tr [:td "Motor CC"] [:td "D5, A0, A1"]]]]]

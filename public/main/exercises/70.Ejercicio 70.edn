@@ -1,0 +1,18 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5
+  [:p "Barrera de estacionamiento"]]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]
+   [:tr [:td "LDR"] [:td "A5"]]
+   [:tr [:td "Botón A"] [:td "D7"]]
+   [:tr [:td "Botón B"] [:td "D8"]]
+   [:tr [:td "Servomotor 1"] [:td "D2"]]
+   [:tr [:td "Servomotor 2"] [:td "D4"]]]]]
