@@ -1,7 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Hacer que el servo oscile entre 180 y 90 cada 1 segundo"]]
+  [:p "Hacer que el servomotor oscile entre los ángulos 180º y 90º cada 1 segundo."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

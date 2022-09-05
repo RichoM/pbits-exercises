@@ -1,7 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Mover el motor hacia adelante controlando la velocidad con el potenciómetro pero cada vez que presiono el botón se alterna la dirección (adelante y atrás)"]]
+  [:p "Mover el motor CC hacia adelante controlando la velocidad con el potenciómetro pero cada vez que presiono el botón A se invierte la dirección (si el motor estaba yendo hacia adelante pasa a moverse hacia atrás, y viceversa)."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

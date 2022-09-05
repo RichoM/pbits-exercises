@@ -1,7 +1,10 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Controlar el ángulo del servo y velocidad del motor CC con el potenciómetro"]]
+  [:p "Controlar usando el potenciómetro:"]
+  [:ul
+   [:li "El ángulo del servomotor."]
+   [:li "La velocidad y dirección del motor CC."]]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

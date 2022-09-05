@@ -1,7 +1,11 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Mover el motor hacia adelante y atrás usando el potenciómetro para controlar la velocidad (de -1 a 1)"]]
+  [:p "Mover el motor CC hacia adelante y atrás usando el potenciómetro para controlar la velocidad y la dirección."]
+  [:ul
+   [:li "Si el potenciómetro está en el ángulo 0º el motor debería moverse hacia atrás a la velocidad máxima."]
+   [:li "Si el potenciómetro está en el ángulo 135º el motor debería detenerse."]
+   [:li "Si el potenciómetro está en el ángulo 270º el motor debería moverse hacia adelante a la velocidad máxima."]]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

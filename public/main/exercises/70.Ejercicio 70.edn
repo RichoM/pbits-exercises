@@ -1,7 +1,10 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
- [:p.fs-5
-  [:p "Barrera de estacionamiento"]]
+ [:p.fs-5 
+  [:p "Armar un programa que simule la entrada/salida de un estacionamiento con capacidad para 3 autos."]
+  [:p "El estacionamiento tiene una barrera de entrada y otra de salida (representadas por sendos servomotores), y cada barrera tiene un botón que permite levantar la misma. La barrera de entrada sólo debe abrirse si hay lugar disponible. Después de levantar cualquiera de las 2 barreras, el programa debe esperar 10 segundos (para darle tiempo al auto a pasar) y luego bajarla a su posición inicial."]
+  [:p "Cuando el estacionamiento está completo debe haber una indicación visual mediante un LED encendido."]]
+ [:div.alert.alert-warning {:role "alert"} "IMPORTANTE: Ambas barreras deben poder usarse simultáneamente."]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

@@ -1,7 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Mover el motor CC hacia adelante a 1/2 de la velocidad máxima"]]
+  [:p "Mover el motor CC hacia adelante a 1/2 de la velocidad máxima."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

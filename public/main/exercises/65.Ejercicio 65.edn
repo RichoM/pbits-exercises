@@ -1,7 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Mover el motor CC hacia atrás a la velocidad máxima durante 1 segundo, detener el motor durante ½ segundo, mover el motor hacia adelante a la velocidad máxima por 1 segundo, detener el motor por ½ segundo, volver a empezar"]]
+  [:p "Mover el motor CC hacia atrás a la velocidad máxima durante 1 segundo, detener el motor durante 1/2 segundo, mover el motor hacia adelante a la velocidad máxima por 1 segundo, detener el motor por 1/2 segundo, y volver a empezar."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

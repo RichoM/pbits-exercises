@@ -1,7 +1,7 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Mover el servomotor al ángulo 90 y terminar el programa"]]
+  [:p "Mover el servomotor al ángulo 90º y terminar el programa."]]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]

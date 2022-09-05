@@ -1,7 +1,8 @@
 [:div.d-grid.gap-2
  [:h3 "Consigna"]
  [:p.fs-5
-  [:p "Mover el servo con el potenciómetro (de 0 a 180)"]]
+  [:p "Controlar el ángulo del servomotor con el potenciómetro (de 0º a 180º)."]]
+ [:img.img-fluid.w-25 {:src "exercises/how-it-works-rotary-potentiometer.gif"}]
  [:table.table.table-striped.table-sm.w-50
   [:thead
    [:th.col "Componente"]
