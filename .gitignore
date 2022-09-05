@@ -19,6 +19,7 @@ pom.xml.asc
 .hgignore
 .hg/
 
+.lsp/
 .calva/
 .clj-kondo/
 public/main/js/
