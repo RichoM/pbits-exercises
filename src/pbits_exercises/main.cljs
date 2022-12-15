@@ -190,6 +190,25 @@
   (let [grouped-exercises (group-by :idx exercises)]
     (mapcat grouped-exercises (map dec force-order))))
 
+(def force-exclusions 
+  (set
+   [55 56 57 58 59 60              ; No one solved this
+    61 64 1 2 14 15 16 41 66       ; Less than 5 blocks
+    61 64 1 14 15 2 16 41 66 
+    55 63 3 6 7 21 22 42 43 62     ; Less than 7 blocks
+    27 28 29 30 31 32 33 34 35
+    36 37 38 39 40 41 42 43 44
+    45 46 47 48 49 50 51 52 53
+    54 55 56 57 58 59 60           ; Solved by less than 60%
+    ]))
+
+(clojure.set/intersection #{8 11 13 16} force-exclusions)
+(clojure.set/intersection #{9 18 19 20 21 22 24 26} force-exclusions)
+
+(defn force-exclude [exercises]
+  (remove (fn [{idx :idx}] (contains? force-exclusions (inc idx)))
+          exercises))
+
 (defn update-ui! [dirty-contents?]
   (go (let [exercises (<! (load-exercises!))
             first-unsolved (first (remove :solved? exercises))
@@ -218,7 +237,7 @@
           (b/on-click #(swap! state assoc :current-exercise
                               (inc (:idx current-exercise)))))
         (let [exercises-bar (get-element-by-id "exercises-bar")]
-          (doseq [{:keys [idx name solved?]} (force-sort exercises)]
+          (doseq [{:keys [idx name solved?]} (force-exclude (force-sort exercises))]
             (let [element-id (str "exercise-" idx "-btn")
                   update-btn! (fn [btn]
                                 (oset! btn :disabled (> idx (get first-unsolved :idx ##Inf)))
