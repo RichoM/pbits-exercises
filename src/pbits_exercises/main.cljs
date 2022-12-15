@@ -192,14 +192,20 @@
 
 (def force-exclusions 
   (set
-   [55 56 57 58 59 60              ; No one solved this
-    61 64 1 2 14 15 16 41 66       ; Less than 5 blocks
-    61 64 1 14 15 2 16 41 66 
-    55 63 3 6 7 21 22 42 43 62     ; Less than 7 blocks
+   [; No one solved these
+    55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
+    
+    ; Less than 5 blocks
+    61 64 1 2 14 15 16 41 66
+    
+    ; Less than 7 blocks
+    ;61 64 1 14 15 2 16 41 66 55 63 3 6 7 21 22 42 43 62     
+    
+    ; Solved by less than 60%
     27 28 29 30 31 32 33 34 35
     36 37 38 39 40 41 42 43 44
     45 46 47 48 49 50 51 52 53
-    54 55 56 57 58 59 60           ; Solved by less than 60%
+    54 55 56 57 58 59 60           
     ]))
 
 (clojure.set/intersection #{8 11 13 16} force-exclusions)
