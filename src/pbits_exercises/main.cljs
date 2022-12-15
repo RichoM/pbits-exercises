@@ -183,6 +183,13 @@
         "Siguiente"
         [:i.fa-solid.fa-arrow-right.ms-2]]]]]]))
 
+; TODO(Richo): Trying to sort exercises by difficulty/complexity...
+(def force-order [14 15 1 2 16 3 61 6 7 17 21 22 23 10 4 5 18 41 19 24 42 43 28 55 13 63 25 8 9 62 44 37 64 29 11 12 20 66 35 30 36 26 32 33 27 49 40 59 56 65 38 34 51 50 48 60 53 68 67 31 46 69 45 39 54 47 52 70 57 58])
+
+(defn force-sort [exercises]
+  (let [grouped-exercises (group-by :idx exercises)]
+    (mapcat grouped-exercises (map dec force-order))))
+
 (defn update-ui! [dirty-contents?]
   (go (let [exercises (<! (load-exercises!))
             first-unsolved (first (remove :solved? exercises))
@@ -211,7 +218,7 @@
           (b/on-click #(swap! state assoc :current-exercise
                               (inc (:idx current-exercise)))))
         (let [exercises-bar (get-element-by-id "exercises-bar")]
-          (doseq [{:keys [idx name solved?]} exercises]
+          (doseq [{:keys [idx name solved?]} (force-sort exercises)]
             (let [element-id (str "exercise-" idx "-btn")
                   update-btn! (fn [btn]
                                 (oset! btn :disabled (> idx (get first-unsolved :idx ##Inf)))
