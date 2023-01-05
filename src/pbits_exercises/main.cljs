@@ -6,51 +6,51 @@
             [oops.core :refer [oget oset! ocall! ocall!+]]
             [crate.core :as crate]
             [utils.bootstrap :as b]
-            [utils.async :refer [go-try <?]]))
+            [utils.async :refer [go-try <?]]
+            [pbits-exercises.exercises :as ex]))
 
-(def electron-remote (js/require "@electron/remote"))
-(def dialog (oget electron-remote :dialog))
-(def fs (oget (js/require "fs") :promises))
-(def path (js/require "path"))
-(def app (oget electron-remote :app))
-
+;(def electron-remote (js/require "@electron/remote"))
+;(def dialog (oget electron-remote :dialog))
+;(def fs (oget (js/require "fs") :promises))
+;(def path (js/require "path"))
+;(def app (oget electron-remote :app))
 
 (enable-console-print!)
 
-(defn join-path [parent child]
+#_(defn join-path [parent child]
   (ocall! path :resolve parent child))
 
-(def EXERCISES-PATH (join-path (ocall! app :getAppPath) "public/main/exercises"))
-(def SOLUTIONS-PATH (join-path (ocall! app :getAppPath) "solutions"))
+#_(def EXERCISES-PATH (join-path (ocall! app :getAppPath) "public/main/exercises"))
+#_(def SOLUTIONS-PATH (join-path (ocall! app :getAppPath) "solutions"))
 
 (defonce state (atom {}))
 
 (defn get-element-by-id [id]
   (js/document.getElementById id))
 
-(defn show-open-dialog! [options]
+#_(defn show-open-dialog! [options]
   (p->c (ocall! dialog :showOpenDialog (clj->js options))))
 
-(defn write-file! [file-path data]
+#_(defn write-file! [file-path data]
   (p->c (ocall! fs :writeFile file-path data)))
 
-(defn read-file! [file-path]
+#_(defn read-file! [file-path]
   (p->c (ocall! fs :readFile file-path "utf-8")))
 
-(defn try-read-file! [file-path]
+#_(defn try-read-file! [file-path]
   (go (try (<? (read-file! file-path))
            (catch :default _ nil))))
 
-(defn copy-file! [src-path dest-path]
+#_(defn copy-file! [src-path dest-path]
   (p->c (ocall! fs :copyFile src-path dest-path)))
 
-(defn read-dir! [dir-path]
+#_(defn read-dir! [dir-path]
   (p->c (ocall! fs :readdir dir-path)))
 
-(defn make-dir! [dir-path]
+#_(defn make-dir! [dir-path]
   (p->c (ocall! fs :mkdir dir-path)))
 
-(defn try-make-dir! [dir-path]
+#_(defn try-make-dir! [dir-path]
   (go (try (<? (make-dir! dir-path))
            (catch :default _ nil))))
 
@@ -64,24 +64,24 @@
     (ocall! :classList.remove "visible")
     (ocall! :classList.add "hidden")))
 
-(defn read-solutions-file! [{:keys [name]}]
+#_(defn read-solutions-file! [{:keys [name]}]
   (go (try
         (if-let [contents (<? (read-file! (join-path SOLUTIONS-PATH (str name ".edn"))))]
           (reader/read-string contents)
           (throw "ERROR!"))
         (catch :default _ {:attempts []}))))
 
-(defn write-solutions-file! [{:keys [name]} solutions]
+#_(defn write-solutions-file! [{:keys [name]} solutions]
   (go-try (<? (write-file! (join-path SOLUTIONS-PATH (str name ".edn"))
                            (pr-str solutions)))))
 
-(defn validate-phb! [file-path]
+#_(defn validate-phb! [file-path]
   (go (try
         (let [{:strs [blockly code]} (js->clj (js/JSON.parse (<? (read-file! file-path))))]
           (and blockly code))
         (catch :default _ false))))
 
-(defn check-for-duplicates! [file-path]
+#_(defn check-for-duplicates! [file-path]
   (go-try
    (let [result (atom false)
          contents-1 (<? (read-file! file-path))]
@@ -102,7 +102,7 @@
       (b/show-modal {:backdrop "static"
                      :keyboard false})))
 
-(defn load-solution-attempt! [{:keys [idx name] :as exercise}]
+#_(defn load-solution-attempt! [{:keys [idx name] :as exercise}]
   (go    
     (try
       (show-overlay!)
@@ -133,7 +133,7 @@
         (js/console.error error)
         (b/alert "ERROR" "Ocurrió un error al tratar de cargar la solución. Intente nuevamente.")))))
 
-(defn load-exercises! []
+#_(defn load-exercises! []
   (go
     (<! (try-make-dir! SOLUTIONS-PATH))
     (let [solved (->> (<! (read-dir! SOLUTIONS-PATH))
@@ -153,9 +153,21 @@
                          (vec))]
       exercises)))
 
-(defn read-exercise! [exercise]
+#_(defn read-exercise! [exercise]
   (go (let [contents (<! (read-file! (:file-path exercise)))]
         (assoc exercise :contents (reader/read-string contents)))))
+
+(defn load-solution-attempt! [{:keys [idx name] :as exercise}]
+  (b/alert "ERROR" "Not allowed"))
+
+(defn load-exercises! []
+  (go (->> (ex/read-all-exercises)
+           (sort-by :idx)
+           (map-indexed (fn [idx ex] (assoc ex :idx idx)))
+           (vec))))
+
+(defn read-exercise! [exercise]
+  (go exercise))
 
 (def main-container
   (crate/html
@@ -172,7 +184,7 @@
      [:hr]
      [:div.row.g-1
       [:div.col-auto
-       [:button#load-solution-btn.btn.btn-lg.btn-primary
+       [:button#load-solution-btn.btn.btn-lg.btn-primary.disabled
         {:type "button" :data-bs-toggle "button"}
         [:i.fa-solid.fa-upload.me-2]
         "Cargar solución"]]
@@ -243,7 +255,7 @@
           (b/on-click #(swap! state assoc :current-exercise
                               (inc (:idx current-exercise)))))
         (let [exercises-bar (get-element-by-id "exercises-bar")]
-          (doseq [{:keys [idx name solved?]} (force-exclude (force-sort exercises))]
+          (doseq [{:keys [idx name solved?]} exercises #_(force-exclude (force-sort exercises))]
             (let [element-id (str "exercise-" idx "-btn")
                   update-btn! (fn [btn]
                                 (oset! btn :disabled (> idx (get first-unsolved :idx ##Inf)))
