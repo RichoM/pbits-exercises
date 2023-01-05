@@ -1,0 +1,16 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 "Armar un programa que prenda y apague los 3 LEDs (rojo, amarillo, y verde) siguiendo la secuencia normal de un semáforo."] 
+ [:div.alert.alert-warning {:role "alert"} "IMPORTANTE: Prestar atención a todos los pasos de la secuencia."]
+ [:img.img-fluid {:src "exercises/traffic-light.png"}]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 790 :height 260 :controls true}
+  [:source {:src "exercises/13.mov" :type "video/mp4"}]]]

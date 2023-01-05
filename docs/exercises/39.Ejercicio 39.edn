@@ -1,0 +1,25 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5
+  [:div "Hacer la siguiente secuencia sólo si el LDR está tapado y ambos botones están presionados:"]
+  [:ol
+   [:li [:i.fa-solid.fa-square.text-danger.me-2] "Rojo"]
+   [:li [:i.fa-solid.fa-square.text-warning.me-2] "Amarillo"]
+   [:li [:i.fa-solid.fa-square.text-success.me-2] "Verde"]
+   [:li [:i.fa-solid.fa-square.text-warning.me-2] "Amarillo"]
+   [:li "y volver a empezar..."]]]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]
+   [:tr [:td "LDR"] [:td "A5"]]
+   [:tr [:td "Botón A"] [:td "D7"]]
+   [:tr [:td "Botón B"] [:td "D8"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 800 :height 450 :controls true}
+  [:source {:src "exercises/39.mov" :type "video/mp4"}]]]

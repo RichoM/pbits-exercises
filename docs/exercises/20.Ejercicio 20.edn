@@ -1,0 +1,20 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 
+  [:div "Armar un programa que realice las siguientes tareas al mismo tiempo:"]
+  [:ol
+   [:li "Hacer parpadear al LED rojo 1 vez por segundo."]
+   [:li "Controlar la intensidad de luz del LED amarillo usando el potenciómetro."]
+   [:li "Hacer parpadear el LED verde usando el valor del potenciómetro para definir la frecuencia."]]]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 702 :height 248 :controls true}
+  [:source {:src "exercises/20.mov" :type "video/mp4"}]]]

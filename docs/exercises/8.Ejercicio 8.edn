@@ -1,0 +1,21 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:div.fs-5 
+  [:p "Hacer parpadear el LED verde múltiples veces con diferente duración cada vez."]
+  [:ul
+   [:li "La primera vez 1 segundo (tanto encendido como apagado)."]
+   [:li "La segunda vez 2 segundos (tanto encendido como apagado)."]
+   [:li "La tercera vez 3 segundos (tanto encendido como apagado)."]
+   [:li "Y luego vuelve a comenzar."]]]
+ 
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 698 :height 370 :controls true}
+  [:source {:src "exercises/8.mov" :type "video/mp4"}]]]

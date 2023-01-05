@@ -1,0 +1,17 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5
+  [:div "Armar un programa que prenda un LED automáticamente en función de la luz ambiente."]
+  [:div "Si el valor detectado por el LDR es muy bajo se prende el LED rojo, caso contrario se apaga."]]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "LDR"] [:td "A5"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 800 :height 450 :controls true}
+  [:source {:src "exercises/28.mov" :type "video/mp4"}]]]

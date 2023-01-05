@@ -1,0 +1,30 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5
+  [:div "Ir prendiendo y apagando los LEDs para formar la siguiente secuencia:"]
+  [:ol
+   [:li [:i.fa-solid.fa-square.text-danger.me-2] "Rojo"]
+   [:li [:i.fa-solid.fa-square.text-warning.me-2] "Amarillo"]
+   [:li [:i.fa-solid.fa-square.text-success.me-2] "Verde"]
+   [:li [:i.fa-solid.fa-square.text-warning.me-2] "Amarillo"]
+   [:li "y volver a empezar..."]]
+  [:div "El botón A controla la velocidad de la secuencia:"]
+  [:ul
+   [:li "Si está presionado el intervalo entre cada LED es de 100 ms."]
+   [:li "Caso contrario, 500 ms."]]]
+ [:div.alert.alert-warning {:role "alert"} "IMPORTANTE: Sólo 1 de los LEDs está prendido en un momento dado."]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]
+   [:tr [:td "LDR"] [:td "A5"]]
+   [:tr [:td "Botón A"] [:td "D7"]]
+   [:tr [:td "Botón B"] [:td "D8"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 800 :height 450 :controls true}
+  [:source {:src "exercises/35.mov" :type "video/mp4"}]]]

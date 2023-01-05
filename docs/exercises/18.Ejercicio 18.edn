@@ -1,0 +1,19 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 
+  [:div "Armar un programa que haga parpadear el LED rojo a una frecuencia variable dependiendo del ángulo del potenciómetro."]
+  [:ul 
+   [:li "Si el potenciómetro está en el ángulo 0º el LED debería parpadear tan rápido que para el ojo humano es como si quedara encendido."]
+   [:li "Por el contrario, si el potenciómetro está en el ángulo 270º el LED debería parpadear cada 1 segundo."]]]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 688 :height 224 :controls true}
+  [:source {:src "exercises/18.mov" :type "video/mp4"}]]]

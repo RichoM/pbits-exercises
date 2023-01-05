@@ -1,0 +1,26 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5
+  [:p "Prender todos los LEDs en secuencia. Cuando todos los LEDs estén prendidos, apagarlos en el mismo orden y con la misma diferencia de tiempo."]
+  [:div "El orden de la secuencia dependerá de qué botones estén presionados:"]
+  [:ul
+   [:li "Si ambos botones están presionados: verde, amarillo, rojo."]
+   [:li "Caso contrario: rojo, amarillo, verde."]]
+  [:div "Y la velocidad dependerá del ángulo del potenciómetro:"]
+  [:ul
+   [:li "Si el potenciómetro está en el ángulo 0º los tres LEDs deberían prenderse al mismo tiempo."]
+   [:li "Si el potenciómetro está en el ángulo 270º el intervalo entre cada LED deberá ser de 1 segundo."]]]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]
+   [:tr [:td "Botón A"] [:td "D7"]]
+   [:tr [:td "Botón B"] [:td "D8"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 800 :height 450 :controls true}
+  [:source {:src "exercises/34.mov" :type "video/mp4"}]]]

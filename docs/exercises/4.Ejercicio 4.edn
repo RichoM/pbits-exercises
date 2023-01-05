@@ -1,0 +1,14 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 "Prender el LED rojo, esperar 1 segundo, prender el LED amarillo, esperar 2 segundos, prender el LED verde, esperar 3 segundos, apagar todos los LEDs, y terminar el programa"]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 728 :height 386 :controls true}
+  [:source {:src "exercises/4.mov" :type "video/mp4"}]]]

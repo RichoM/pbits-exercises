@@ -1,0 +1,25 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5
+  [:div "Implementar 2 contadores:"]
+  [:ul
+   [:li "uno registra la cantidad de veces presionado el botón A"]
+   [:li " y el otro registra las veces presionado el botón B"]]
+  [:div "Si el contador del botón A es mayor al del botón B se prende sólo el LED rojo."]
+  [:div "Si el contador del botón B es mayor al del botón A, se prende sólo el LED verde."]
+  [:div "Y si son iguales, se prende el LED amarillo."]]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]
+   [:tr [:td "LDR"] [:td "A5"]]
+   [:tr [:td "Botón A"] [:td "D7"]]
+   [:tr [:td "Botón B"] [:td "D8"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 800 :height 450 :controls true}
+  [:source {:src "exercises/47.mov" :type "video/mp4"}]]]

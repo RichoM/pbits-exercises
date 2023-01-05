@@ -1,0 +1,20 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5
+  [:div "Cada vez que se presiona y suelta el botón A reproducir durante 100 ms una de las 7 notas musicales (empezando por Do)."]
+  [:div "Al finalizar la secuencia vuelve al principio: Do, Re, Mi, Fa, Sol, La, Si, Do..."]]
+ [:div.alert.alert-warning {:role "alert"} "IMPORTANTE: Los bloques usan el sistema inglés de notación musical para los nombres de las notas."]
+ [:img.img-fluid {:src "exercises/notas_musicales.png"}]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]
+   [:tr [:td "LDR"] [:td "A5"]]
+   [:tr [:td "Botón A"] [:td "D7"]]
+   [:tr [:td "Botón B"] [:td "D8"]]
+   [:tr [:td "Buzzer"] [:td "D2"]]]]]

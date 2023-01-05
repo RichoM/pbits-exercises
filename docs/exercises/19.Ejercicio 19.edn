@@ -1,0 +1,19 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 
+  [:div "Hacer parpadear el LED rojo controlando tanto la intensidad como la frecuencia usando el potenciómetro."]
+  [:ul
+   [:li "Si el potenciómetro está en el ángulo 0º el LED debería parpadear demasiado rápido para el ojo humano pero con 0 intensidad (por lo tanto, queda apagado)."]
+   [:li "Si el potenciómetro está en el ángulo 270º el LED debería parpadear cada 1 segundo con la máxima intensidad de luz."]]]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 700 :height 266 :controls true}
+  [:source {:src "exercises/19.mov" :type "video/mp4"}]]]

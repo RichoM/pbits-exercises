@@ -1,0 +1,18 @@
+[:div.d-grid.gap-2
+ [:h3 "Consigna"]
+ [:p.fs-5 
+  [:div "Armar un programa que permita controlar la intensidad del LED rojo usando el potenciómetro."]
+  [:div "Si el potenciómetro está en el ángulo 0º el LED debería apagarse y si está en el ángulo 270º debería prenderse con la intensidad máxima."]]
+ [:img.img-fluid.w-25 {:src "exercises/how-it-works-rotary-potentiometer.gif"}]
+ [:table.table.table-striped.table-sm.w-50
+  [:thead
+   [:th.col "Componente"]
+   [:th.col "Pin"]]
+  [:tbody
+   [:tr [:td "LED rojo"] [:td "D11"]]
+   [:tr [:td "LED amarillo"] [:td "D10"]]
+   [:tr [:td "LED verde"] [:td "D9"]]
+   [:tr [:td "Potenciómetro"] [:td "A4"]]]]
+ [:h4 "Ejemplo"]
+ [:video {:width 676 :height 228 :controls true}
+  [:source {:src "exercises/16.mov" :type "video/mp4"}]]]
