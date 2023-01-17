@@ -147,7 +147,7 @@
                                   {:idx (js/parseInt idx)
                                    :name (str/trim name)
                                    :file-path (join-path EXERCISES-PATH file-name)
-                                   :solved? (contains? solved name)})))
+                                   :solved? true #_(contains? solved name)})))
                          (sort-by :idx)
                          (map-indexed (fn [idx ex] (assoc ex :idx idx)))
                          (vec))]
@@ -184,7 +184,7 @@
         [:i.fa-solid.fa-arrow-right.ms-2]]]]]]))
 
 ; TODO(Richo): Trying to sort exercises by difficulty/complexity...
-(def force-order [14 15 1 2 16 3 61 6 7 17 21 22 23 10 4 5 18 41 19 24 42 43 28 55 13 63 25 8 9 62 44 37 64 29 11 12 20 66 35 30 36 26 32 33 27 49 40 59 56 65 38 34 51 50 48 60 53 68 67 31 46 69 45 39 54 47 52 70 57 58])
+(def force-order [1 2 14 15 3 6 7 16 4 5 10 61 8 9 13 21 22 17 23 24 18 25 28 41 11 12 42 43 19 55 62 63 44 35 20 64 29 32 37 66 33 30 26 36 40 27 49 59 65 38 56 51 50 48 60 31 34 53 67 68 46 45 69 54 39 47 52 70 57 58])
 
 (defn force-sort [exercises]
   (let [grouped-exercises (group-by :idx exercises)]
@@ -196,7 +196,7 @@
     55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
     
     ; Less than 5 blocks
-    61 64 1 2 14 15 16 41 66
+    ;61 64 1 2 14 15 16 41 66
     
     ; Less than 7 blocks
     ;61 64 1 14 15 2 16 41 66 55 63 3 6 7 21 22 42 43 62     
@@ -207,9 +207,6 @@
     45 46 47 48 49 50 51 52 53
     54 55 56 57 58 59 60           
     ]))
-
-(clojure.set/intersection #{8 11 13 16} force-exclusions)
-(clojure.set/intersection #{9 18 19 20 21 22 24 26} force-exclusions)
 
 (defn force-exclude [exercises]
   (remove (fn [{idx :idx}] (contains? force-exclusions (inc idx)))
@@ -242,8 +239,13 @@
           (oset! :disabled (not (:solved? current-exercise)))
           (b/on-click #(swap! state assoc :current-exercise
                               (inc (:idx current-exercise)))))
-        (let [exercises-bar (get-element-by-id "exercises-bar")]
-          (doseq [{:keys [idx name solved?]} (force-exclude (force-sort exercises))]
+        (let [exercises-bar (get-element-by-id "exercises-bar")
+              exercises-by-id (->> (group-by :idx exercises)
+                                   (map (fn [[idx exs]] [(inc idx) (first exs)]))
+                                   (into {}))]
+          (doseq [{:keys [idx name solved?]} (map exercises-by-id
+                                                  [14 15 1 2 3 4 5 6 7 8 9 10 11 12 13 16 17 18 19 37 20 21 22 23 24 25 35 36 28 29 30 32 38 41 42 43 44 26 27 33 34 31 39 40 48 49 50 53 45 46 47 54 51 52])
+                  #_(force-exclude (force-sort exercises))]
             (let [element-id (str "exercise-" idx "-btn")
                   update-btn! (fn [btn]
                                 (oset! btn :disabled (> idx (get first-unsolved :idx ##Inf)))
@@ -267,6 +269,7 @@
                                        (>= idx (count exercises)))
                                     (oget exercises-bar :childNodes))]
             (ocall! to-remove :remove))))))
+
 
 (defn init []
   (go (doto (get-element-by-id "main-container")
